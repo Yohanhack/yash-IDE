@@ -8,7 +8,11 @@ Le socle et le premier module sont utilisables. L’éditeur, la recherche et le
 
 ## Interface V1.1 — style lazygit
 
-Une nouvelle interface Go est disponible dans `cmd/yh`. Elle propose une barre latérale, des panneaux avec bordures, thèmes de couleurs, navigation clavier (`↑/↓`, `j/k`, `Entrée`, `q`), sélection à la souris et redimensionnement dynamique. À l’installation, `golang` est vérifié puis l’interface est construite dans `bin/yh-tui`; le lanceur `yh` l’utilise automatiquement. En cas d’échec de compilation, l’interface Bash reste disponible.
+Une nouvelle interface Go est disponible dans `cmd/yh`. Elle propose une barre latérale, des panneaux avec bordures, thèmes de couleurs, navigation clavier (`↑/↓`, `j/k`, `Entrée`, `q`), ouverture par clic, et redimensionnement dynamique. À l’installation, `golang` est vérifié, `go mod tidy`, `go mod download` et `go build` sont exécutés, puis l’interface est construite dans `bin/yh-tui`; le lanceur `yh` l’utilise automatiquement.
+
+### Design V1.1
+
+Le tableau de bord comprend un en-tête d’état, un navigateur de modules et sessions, des cartes Workspace et Module actif, une activité récente, des raccourcis visibles, ainsi qu’un pied de page d’état. Les panneaux restent lisibles en portrait et se recalculent lors du changement de taille du terminal.
 
 - commande d’entrée `yh` ;
 - interface TUI en Bash et séquences ANSI ;

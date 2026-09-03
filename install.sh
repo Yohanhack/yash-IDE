@@ -27,6 +27,7 @@ failed=()
 for package in "${DEPENDENCIES[@]}"; do
   command_name="$package"
   [[ "$package" == "ripgrep" ]] && command_name="rg"
+  [[ "$package" == "golang" ]] && command_name="go"
   if command -v "$command_name" >/dev/null 2>&1; then
     printf '  ✓ %-10s deja installe\n' "$package" | tee -a "$LOG_FILE"
   elif pkg install -y "$package" >> "$LOG_FILE" 2>&1; then
@@ -40,11 +41,11 @@ done
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/yh-termux" "${XDG_DATA_HOME:-$HOME/.local/share}/yh-termux"
 mkdir -p "$ROOT/bin"
 if command -v go >/dev/null 2>&1; then
-  if go mod download >> "$LOG_FILE" 2>&1 && go build -o "$ROOT/bin/yh-tui" ./cmd/yh >> "$LOG_FILE" 2>&1; then
+  if go mod tidy >> "$LOG_FILE" 2>&1 && go mod download >> "$LOG_FILE" 2>&1 && go build -o "$ROOT/bin/yh-tui" ./cmd/yh >> "$LOG_FILE" 2>&1; then
     chmod +x "$ROOT/bin/yh-tui"
     printf '  ✓ interface graphique TUI Go construite\n' | tee -a "$LOG_FILE"
   else
-    printf '  ✗ interface TUI Go non construite ; interface Bash conservee (voir install.log)\n' | tee -a "$LOG_FILE"
+    printf '  ✗ interface TUI Go non construite (voir install.log)\n' | tee -a "$LOG_FILE"
   fi
 fi
 ln -sfn "$ROOT/yh" "$BIN_DIR/yh"
