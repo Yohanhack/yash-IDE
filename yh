@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Point d'entrée de YH-Termux.
+
+set -euo pipefail
+
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PROJECT_ROOT
+
+# shellcheck source=core/main.sh
+source "$PROJECT_ROOT/core/main.sh"
+yh_main "$@"
