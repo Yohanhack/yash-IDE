@@ -5,6 +5,8 @@ yh_editor_load() {
   [[ -f "$YH_CURRENT_FILE" ]] && mapfile -t YH_EDITOR_LINES < "$YH_CURRENT_FILE"
   (( ${#YH_EDITOR_LINES[@]} )) || YH_EDITOR_LINES=("")
   YH_EDITOR_ROW=0; YH_EDITOR_COL=0; YH_EDITOR_DIRTY=0
+  if [[ "${YH_EDITOR_GOTO_LINE:-}" =~ ^[0-9]+$ ]] && (( YH_EDITOR_GOTO_LINE <= ${#YH_EDITOR_LINES[@]} )); then YH_EDITOR_ROW=$((YH_EDITOR_GOTO_LINE-1)); fi
+  unset YH_EDITOR_GOTO_LINE
   YH_EDITOR_UNDO=(); YH_EDITOR_REDO=()
 }
 

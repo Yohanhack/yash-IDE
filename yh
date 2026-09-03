@@ -3,7 +3,10 @@
 
 set -euo pipefail
 
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Le fichier peut être lancé directement ou via le lien $PREFIX/bin/yh créé
+# par install.sh. Résoudre le lien est indispensable dans le second cas.
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+PROJECT_ROOT="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 export PROJECT_ROOT
 
 # shellcheck source=core/main.sh

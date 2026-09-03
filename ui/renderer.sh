@@ -8,7 +8,7 @@ yh_render_home() {
   local index module marker
   yh_clear_screen
   printf '%s%s  %s%s\n' "$YH_BOLD$YH_CYAN" "$YH_APP_NAME" "$YH_DIM" "$YH_WORKSPACE$YH_RESET"
-  yh_draw_rule 64
+  yh_draw_rule "$YH_UI_WIDTH"
   printf '%sMODULES%s\n\n' "$YH_BOLD" "$YH_RESET"
 
   for index in "${!YH_MODULES[@]}"; do
@@ -21,7 +21,7 @@ yh_render_home() {
     fi
   done
 
-  printf '\n'; yh_draw_rule 64
+  printf '\n'; yh_draw_rule "$YH_UI_WIDTH"
   printf '%s↑/k ↓/j%s Navigate   %sEnter%s Open   %sq%s Quit\n' "$YH_DIM" "$YH_RESET" "$YH_DIM" "$YH_RESET" "$YH_DIM" "$YH_RESET"
   printf '%sCtrl+P%s Quick search   %sCtrl+T%s Terminal (coming soon)\n' "$YH_DIM" "$YH_RESET" "$YH_DIM" "$YH_RESET"
 }
