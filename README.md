@@ -6,6 +6,10 @@ Une IDE/TUI modulaire, légère et pensée pour Termux sur Android. Elle rassemb
 
 Le socle et le premier module sont utilisables. L’éditeur, la recherche et les autres modules arrivent dans les versions suivantes.
 
+## Interface V1.1 — style lazygit
+
+Une nouvelle interface Go est disponible dans `cmd/yh`. Elle propose une barre latérale, des panneaux avec bordures, thèmes de couleurs, navigation clavier (`↑/↓`, `j/k`, `Entrée`, `q`), sélection à la souris et redimensionnement dynamique. À l’installation, `golang` est vérifié puis l’interface est construite dans `bin/yh-tui`; le lanceur `yh` l’utilise automatiquement. En cas d’échec de compilation, l’interface Bash reste disponible.
+
 - commande d’entrée `yh` ;
 - interface TUI en Bash et séquences ANSI ;
 - tableau de bord avec les neuf futurs modules ;

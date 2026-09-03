@@ -9,6 +9,10 @@ SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 PROJECT_ROOT="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 export PROJECT_ROOT
 
+if [[ -x "$PROJECT_ROOT/bin/yh-tui" ]]; then
+  exec "$PROJECT_ROOT/bin/yh-tui" "$@"
+fi
+
 # shellcheck source=core/main.sh
 source "$PROJECT_ROOT/core/main.sh"
 yh_main "$@"

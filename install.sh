@@ -6,7 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PREFIX_DIR="${PREFIX:-/data/data/com.termux/files/usr}"
 BIN_DIR="$PREFIX_DIR/bin"
 LOG_FILE="$ROOT/install.log"
-DEPENDENCIES=(ranger tmux git ripgrep fd fzf lazygit btop ncdu w3m)
+DEPENDENCIES=(ranger tmux git ripgrep fd fzf lazygit btop ncdu w3m golang)
 
 if [[ ! -d "$BIN_DIR" ]]; then
   printf 'Termux semble absent : %s n existe pas.\n' "$BIN_DIR" >&2
@@ -38,6 +38,15 @@ for package in "${DEPENDENCIES[@]}"; do
 done
 
 mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/yh-termux" "${XDG_DATA_HOME:-$HOME/.local/share}/yh-termux"
+mkdir -p "$ROOT/bin"
+if command -v go >/dev/null 2>&1; then
+  if go mod download >> "$LOG_FILE" 2>&1 && go build -o "$ROOT/bin/yh-tui" ./cmd/yh >> "$LOG_FILE" 2>&1; then
+    chmod +x "$ROOT/bin/yh-tui"
+    printf '  ✓ interface graphique TUI Go construite\n' | tee -a "$LOG_FILE"
+  else
+    printf '  ✗ interface TUI Go non construite ; interface Bash conservee (voir install.log)\n' | tee -a "$LOG_FILE"
+  fi
+fi
 ln -sfn "$ROOT/yh" "$BIN_DIR/yh"
 chmod +x "$ROOT/yh" "$ROOT/install.sh"
 if (( ${#failed[@]} )); then
